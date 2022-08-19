@@ -21,10 +21,12 @@ export type Diff = {
 
 type EachCallback = (data: TreeModel, parent: TreeModel, index: number) => void;
 
+type Ids = Data['id'][];
+
 let diff: Diff = {};
 
 function merge(source: any, ...targets: any[]) {
-  targets.forEach(diff => {
+  targets.forEach((diff) => {
     for (const k in diff) {
       const target = diff[k];
       if (target !== null) {
@@ -135,6 +137,7 @@ class TreeModel implements Data {
         o.setChecked(false, true);
       });
     }
+    return this;
   }
 
   setIndeterminate(value: boolean, unrecursion?: boolean) {
@@ -153,6 +156,7 @@ class TreeModel implements Data {
     if (!unrecursion) {
       this.diff();
     }
+    return this;
   }
 
   /**
@@ -171,7 +175,7 @@ class TreeModel implements Data {
   /**
    * 根据ID数组设置选中, 返回Diff
    */
-  selectKeys(keys: Data['id'][]) {
+  selectKeys(keys: Ids) {
     // 先清空状态
     const diffTmp: Diff = this.clean();
     keys.forEach((o) => {
@@ -184,7 +188,7 @@ class TreeModel implements Data {
    * 获取当前树选中的状态
    */
   getSelectKeys() {
-    const selectKeys: Data['id'][] = [];
+    const selectKeys: Ids = [];
     Object.values(this.map).forEach((o) => {
       if (o.checked) {
         selectKeys.push(o.id);
@@ -230,6 +234,7 @@ class TreeModel implements Data {
     if (targetDiff && !parent.indeterminate) {
       parent.calcParentStatus();
     }
+    return this;
   }
 
   /**
@@ -261,6 +266,7 @@ class TreeModel implements Data {
     this.childList.forEach((data, index) => {
       fn(data, this, index);
     });
+    return this;
   }
 
   // 递归遍历下级元素, 回调再递归前
@@ -269,6 +275,7 @@ class TreeModel implements Data {
       fn(data, this, index);
       data.eachDeep(fn);
     });
+    return this;
   }
 
   // 递归遍历下级元素, 回调再递归后
@@ -277,6 +284,7 @@ class TreeModel implements Data {
       data.eachDeep(fn);
       fn(data, this, index);
     });
+    return this;
   }
 }
 

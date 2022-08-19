@@ -1,3 +1,4 @@
+/// <reference types="vitest" />
 import { defineConfig } from 'vite';
 import path from 'path';
 import typescript from '@rollup/plugin-typescript';
@@ -19,7 +20,7 @@ export default defineConfig({
       entry: resolve('./src/TreeModel.ts'),
       name: 'TreeModel',
       formats: ['es', 'umd'],
-      fileName: (format) => `index.${format}.js`
+      fileName: (format) => `index.${format}.js`,
     },
     rollupOptions: {
       plugins: [
@@ -31,8 +32,9 @@ export default defineConfig({
           exclude: resolve('node_modules/**'),
           tsconfig: resolve('./tsconfig.json'),
         }),
-      ]
+      ],
     },
   },
   plugins: [],
+  test: {},
 });
