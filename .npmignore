@@ -5,3 +5,4 @@ example
 vite.config
 *.lock
 *.yarml
+test
