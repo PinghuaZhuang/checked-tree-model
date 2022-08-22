@@ -61,7 +61,7 @@ declare class CheckedTreeModel implements Data {
   /**
    * 计算父元素的状态
    */
-  calcParentStatus(): this | undefined;
+  calcParentStatus(): this;
   /**
    * 清空当前树的状态并返回 diff
    */

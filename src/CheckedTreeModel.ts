@@ -71,6 +71,9 @@ class CheckedTreeModel implements Data {
     this.map = parent == null ? { [this.id]: this } : parent.map;
     this.childList = options.childList.map((o) => {
       const target = new CheckedTreeModel(o, this);
+      if (this.map[target.id] != null) {
+        console.warn(`the same id. id: ${target.id}`);
+      }
       this.map[target.id] = target;
       return target;
     });
@@ -206,11 +209,11 @@ class CheckedTreeModel implements Data {
    */
   calcParentStatus() {
     const { parent } = this;
-    if (parent == null) return;
+    if (parent == null) return this;
 
     const { childList } = parent;
     const { length } = childList;
-    if (length <= 0) return;
+    if (length <= 0) return this;
 
     parent.#prechecked = parent.#checked;
     parent.#preindeterminate = parent.#indeterminate;
