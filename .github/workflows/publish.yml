@@ -3,7 +3,7 @@ name: Publish TreeModel lib.
 on:
   push:
     tags:
-      - treeModel_tag_v*
+      - CheckedTreeModel_tag_v*
   workflow_dispatch:
 
 jobs:
