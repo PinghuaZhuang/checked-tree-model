@@ -1,6 +1,6 @@
 # CheckedTreeModel
 
-[![Publish CheckedTreeModel lib.](https://github.com/PinghuaZhuang/checked-tree-model/actions/workflows/publish.yml/badge.svg)](https://github.com/PinghuaZhuang/checked-tree-model/actions/workflows/publish.yml) [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/PinghuaZhuang/checked-tree-model/blob/master/LICENSE) [![Commit](https://img.shields.io/github/last-commit/pinghuazhuang/checked-tree-model.svg)](https://github.com/PinghuaZhuang/checked-tree-model/commits/master) [![Verison](https://img.shields.io/npm/v/@zstark/checked-tree-model.svg)](https://www.npmjs.com/package/@zstark/checked-tree-model)
+[![publish](https://github.com/PinghuaZhuang/checked-tree-model/actions/workflows/publish.yml/badge.svg)](https://github.com/PinghuaZhuang/checked-tree-model/actions/workflows/publish.yml) [![test](https://github.com/PinghuaZhuang/checked-tree-model/actions/workflows/test.yml/badge.svg)](https://github.com/PinghuaZhuang/checked-tree-model/actions/workflows/test.yml) [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/PinghuaZhuang/checked-tree-model/blob/master/LICENSE) [![Commit](https://img.shields.io/github/last-commit/pinghuazhuang/checked-tree-model.svg)](https://github.com/PinghuaZhuang/checked-tree-model/commits/master) [![Verison](https://img.shields.io/npm/v/@zstark/checked-tree-model.svg)](https://www.npmjs.com/package/@zstark/checked-tree-model)
 
 一个树形结构数据的 `checked` 状态变化的数据模型. 返回一个 `Diff` 状态变化集合. 参考 `antd` 的 `Tree` 组件.
 
