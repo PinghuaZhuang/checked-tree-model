@@ -1,11 +1,11 @@
 import { describe, it, expect } from 'vitest';
 import createMock from 'test/createMock';
-import TreeModel from '../src/TreeModel';
+import CheckedTreeModel from '../src/CheckedTreeModel';
 import { sortedUniq } from 'lodash';
 
 describe('状态变化', () => {
   it('全选/全不选', () => {
-    const mock = new TreeModel(createMock());
+    const mock = new CheckedTreeModel(createMock());
     mock.setChecked(true);
     expect(sortedUniq(mock.getSelectKeys())).toEqual([
       21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
@@ -17,8 +17,8 @@ describe('状态变化', () => {
   });
 
   it('半选', () => {
-    const mock = new TreeModel(createMock());
-    mock.setCheckedReturnDiff(23);
+    const mock = new CheckedTreeModel(createMock());
+    mock.setCheckedByIdReturnDiff(23);
     expect(sortedUniq(mock.getSelectKeys())).toEqual([23, 24, 25]);
     expect(mock.checked).toEqual(false);
     expect(mock.indeterminate).toEqual(true);
@@ -29,7 +29,7 @@ describe('状态变化', () => {
   });
 
   it('selectKeys', () => {
-    const mock = new TreeModel(createMock());
+    const mock = new CheckedTreeModel(createMock());
     expect(mock.selectKeys([23, 29])).toMatchObject({
       21: {
         indeterminate: true,
@@ -66,8 +66,8 @@ describe('状态变化', () => {
   });
 
   it('diff', () => {
-    const mock = new TreeModel(createMock());
-    const diff = mock.setCheckedReturnDiff(23);
+    const mock = new CheckedTreeModel(createMock());
+    const diff = mock.setCheckedByIdReturnDiff(23);
     expect(diff).toMatchObject({
       21: {
         indeterminate: true,

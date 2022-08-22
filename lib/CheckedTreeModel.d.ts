@@ -8,7 +8,7 @@ export interface Data {
   expand?: boolean;
 }
 declare type Map = {
-  [P: string]: TreeModel;
+  [P: string]: CheckedTreeModel;
 };
 export declare type Diff = {
   [P: string]: {
@@ -17,23 +17,23 @@ export declare type Diff = {
   };
 };
 declare type EachCallback = (
-  data: TreeModel,
-  parent: TreeModel,
+  data: CheckedTreeModel,
+  parent: CheckedTreeModel,
   index: number,
 ) => void;
 declare type Ids = Data['id'][];
-declare class TreeModel implements Data {
+declare class CheckedTreeModel implements Data {
   #private;
   id: Data['id'];
   pId: Data['pId'];
   level: Data['level'];
   options: Data;
   name: Data['name'];
-  childList: TreeModel[];
-  parent?: TreeModel;
+  childList: CheckedTreeModel[];
+  parent?: CheckedTreeModel;
   className?: Data['className'];
   map: Map;
-  constructor(options: Data, parent?: TreeModel);
+  constructor(options: Data, parent?: CheckedTreeModel);
   isRoot(): boolean;
   get checked(): boolean;
   get indeterminate(): boolean;
@@ -49,7 +49,7 @@ declare class TreeModel implements Data {
   /**
    * 通过ID设置选中
    */
-  setCheckedReturnDiff(id?: Data['id'], value?: boolean): Diff;
+  setCheckedByIdReturnDiff(id?: Data['id'], value?: boolean): Diff;
   /**
    * 根据ID数组设置选中, 返回Diff
    */
@@ -70,4 +70,4 @@ declare class TreeModel implements Data {
   eachDeep(fn: EachCallback): this;
   eachDeepAfter(fn: EachCallback): this;
 }
-export default TreeModel;
+export default CheckedTreeModel;

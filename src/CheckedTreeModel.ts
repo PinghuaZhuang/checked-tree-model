@@ -9,7 +9,7 @@ export interface Data {
 }
 
 type Map = {
-  [P: string]: TreeModel;
+  [P: string]: CheckedTreeModel;
 };
 
 export type Diff = {
@@ -19,7 +19,11 @@ export type Diff = {
   };
 };
 
-type EachCallback = (data: TreeModel, parent: TreeModel, index: number) => void;
+type EachCallback = (
+  data: CheckedTreeModel,
+  parent: CheckedTreeModel,
+  index: number,
+) => void;
 
 type Ids = Data['id'][];
 
@@ -41,7 +45,7 @@ function merge(source: any, ...targets: any[]) {
   });
 }
 
-class TreeModel implements Data {
+class CheckedTreeModel implements Data {
   #checked: boolean = false;
   #prechecked: boolean = false;
   #indeterminate: boolean = false;
@@ -51,12 +55,12 @@ class TreeModel implements Data {
   level: Data['level'];
   options: Data;
   name: Data['name'];
-  childList: TreeModel[];
-  parent?: TreeModel;
+  childList: CheckedTreeModel[];
+  parent?: CheckedTreeModel;
   className?: Data['className'];
   map: Map;
 
-  constructor(options: Data, parent?: TreeModel) {
+  constructor(options: Data, parent?: CheckedTreeModel) {
     this.options = Object.assign({}, options);
     this.name = options.name;
     this.className = options.className;
@@ -66,7 +70,7 @@ class TreeModel implements Data {
     this.level = parent == null ? 0 : parent.level + 1;
     this.map = parent == null ? { [this.id]: this } : parent.map;
     this.childList = options.childList.map((o) => {
-      const target = new TreeModel(o, this);
+      const target = new CheckedTreeModel(o, this);
       this.map[target.id] = target;
       return target;
     });
@@ -162,7 +166,7 @@ class TreeModel implements Data {
   /**
    * 通过ID设置选中
    */
-  setCheckedReturnDiff(id?: Data['id'], value?: boolean): Diff {
+  setCheckedByIdReturnDiff(id?: Data['id'], value?: boolean): Diff {
     diff = {};
     const target = this.map[id ?? this.id];
     if (target == null) return {};
@@ -179,7 +183,7 @@ class TreeModel implements Data {
     // 先清空状态
     const diffTmp: Diff = this.clean();
     keys.forEach((o) => {
-      merge(diffTmp, this.setCheckedReturnDiff(o));
+      merge(diffTmp, this.setCheckedByIdReturnDiff(o));
     });
     return diffTmp;
   }
@@ -288,4 +292,4 @@ class TreeModel implements Data {
   }
 }
 
-export default TreeModel;
+export default CheckedTreeModel;

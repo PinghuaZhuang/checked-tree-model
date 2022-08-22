@@ -17,8 +17,8 @@ export default defineConfig({
   build: {
     outDir: 'lib',
     lib: {
-      entry: resolve('./src/TreeModel.ts'),
-      name: 'TreeModel',
+      entry: resolve('./src/CheckedTreeModel.ts'),
+      name: 'CheckedTreeModel',
       formats: ['es', 'umd'],
       fileName: (format) => `index.${format}.js`,
     },
