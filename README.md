@@ -34,7 +34,9 @@ data.setCheckedByIdReturnDiff(2);
 
 ```ts
 (options: Data, parent?: CheckedTreeModel) => void
+```
 
+```ts
 export interface Data {
   id: string | number;
   pId: string | number;
@@ -70,5 +72,5 @@ type EachCallback = (
 - getSelectKeys: () => Ids. 获取当前树所有选中的 ID.
 - clean: () => Diff. 清空当前树所有状态.
 - each: (fn: EachCallback) => void. 遍历子元素.
-- eachDeep: (fn: EachCallback) => void. 递归遍历子元素. 回调再递归前.
-- eachDeepAfter: (fn: EachCallback) => void. 递归遍历子元素. 回调再递归后.
+- eachDeep: (fn: EachCallback) => void. 递归遍历子元素. 回调在递归前.
+- eachDeepAfter: (fn: EachCallback) => void. 递归遍历子元素. 回调在递归后.
