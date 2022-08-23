@@ -8,16 +8,15 @@ export interface Data {
   expand?: boolean;
 }
 
-type Map = {
-  [P: string]: CheckedTreeModel;
-};
+type Map = Record<string, CheckedTreeModel>;
 
-export type Diff = {
-  [P: string]: {
+export type Diff = Record<
+  string,
+  {
     indeterminate?: boolean;
     checked?: boolean;
-  };
-};
+  }
+>;
 
 type EachCallback = (
   data: CheckedTreeModel,
@@ -30,9 +29,9 @@ type Ids = Data['id'][];
 let diff: Diff = {};
 
 function merge(source: any, ...targets: any[]) {
-  targets.forEach((diff) => {
-    for (const k in diff) {
-      const target = diff[k];
+  targets.forEach((_diff) => {
+    for (const k in _diff) {
+      const target = _diff[k];
       if (target !== null) {
         if (typeof target !== 'object') {
           source[k] = target;
@@ -46,10 +45,10 @@ function merge(source: any, ...targets: any[]) {
 }
 
 class CheckedTreeModel implements Data {
-  #checked: boolean = false;
-  #prechecked: boolean = false;
-  #indeterminate: boolean = false;
-  #preindeterminate: boolean = false;
+  #checked = false;
+  #prechecked = false;
+  #indeterminate = false;
+  #preindeterminate = false;
   id: Data['id'];
   pId: Data['pId'];
   level: Data['level'];
