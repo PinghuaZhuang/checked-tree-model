@@ -217,7 +217,9 @@ class CheckedTreeModel implements Data {
     parent.#prechecked = parent.#checked;
     parent.#preindeterminate = parent.#indeterminate;
 
-    const selectKeysLength = childList.filter((o) => o.checked).length;
+    const selectKeysLength = childList.filter(
+      (o) => o.checked || o.indeterminate,
+    ).length;
 
     if (selectKeysLength === length) {
       // 全选
