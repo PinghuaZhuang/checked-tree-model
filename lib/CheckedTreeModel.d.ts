@@ -36,7 +36,7 @@ declare class CheckedTreeModel implements Data {
     /**
      * checked 中要使用 indeterminate. 赋值的时候注意顺序.
      */
-    setChecked(value: boolean, unrecursion?: boolean): this;
+    setChecked(value: boolean, unrecursion?: boolean, undown?: boolean): this | undefined;
     setIndeterminate(value: boolean, unrecursion?: boolean): this;
     /**
      * 通过ID设置选中

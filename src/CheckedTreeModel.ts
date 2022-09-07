@@ -114,7 +114,7 @@ class CheckedTreeModel implements Data {
   /**
    * checked 中要使用 indeterminate. 赋值的时候注意顺序.
    */
-  setChecked(value: boolean, unrecursion?: boolean) {
+  setChecked(value: boolean, unrecursion?: boolean, undown?: boolean) {
     this.#prechecked = this.#checked;
     this.#checked = value;
 
@@ -131,6 +131,7 @@ class CheckedTreeModel implements Data {
     }
 
     if (value) {
+      if (undown) return;
       // 选中后, 子元素全部选中
       this.each((o) => {
         o.setIndeterminate(false, true);
@@ -172,7 +173,7 @@ class CheckedTreeModel implements Data {
     diff = {};
     const target = this.map[id ?? this.id];
     if (target == null) return {};
-    target.setChecked(value ?? true);
+    target.setChecked(value ?? true, false, true);
     const ret = Object.assign({}, diff);
     diff = {};
     return ret;
