@@ -41,11 +41,11 @@ declare class CheckedTreeModel implements Data {
     /**
      * 通过ID设置选中
      */
-    setCheckedByIdReturnDiff(id?: Data['id'], value?: boolean): Diff;
+    setCheckedByIdReturnDiff(id?: Data['id'], value?: boolean, undown?: boolean): Diff;
     /**
      * 根据ID数组设置选中, 返回Diff
      */
-    selectKeys(keys: Ids): Diff;
+    selectKeys(keys: Ids, undown?: boolean): Diff;
     /**
      * 获取当前树选中的状态
      */

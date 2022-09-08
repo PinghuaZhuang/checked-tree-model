@@ -130,19 +130,20 @@ class CheckedTreeModel implements Data {
       this.calcParentStatus();
     }
 
-    if (value) {
-      if (undown) return;
-      // 选中后, 子元素全部选中
-      this.each((o) => {
-        o.setIndeterminate(false, true);
-        o.setChecked(true, true);
-      });
-    } else if (!this.indeterminate) {
-      // 取消选中后, 子元素全部取消选中
-      this.each((o) => {
-        o.setIndeterminate(false, true);
-        o.setChecked(false, true);
-      });
+    if (!undown) {
+      if (value) {
+        // 选中后, 子元素全部选中
+        this.each((o) => {
+          o.setIndeterminate(false, true);
+          o.setChecked(true, true);
+        });
+      } else if (!this.indeterminate) {
+        // 取消选中后, 子元素全部取消选中
+        this.each((o) => {
+          o.setIndeterminate(false, true);
+          o.setChecked(false, true);
+        });
+      }
     }
     return this;
   }
@@ -222,15 +223,13 @@ class CheckedTreeModel implements Data {
     parent.#prechecked = parent.#checked;
     parent.#preindeterminate = parent.#indeterminate;
 
-    const selectKeysLength = childList.filter(
-      (o) => o.checked || o.indeterminate,
-    ).length;
+    const selectKeysLength = childList.filter((o) => o.checked).length;
 
     if (selectKeysLength === length) {
       // 全选
       parent.#checked = true;
       parent.#indeterminate = false;
-    } else if (selectKeysLength > 0) {
+    } else if (selectKeysLength > 0 || childList.some((o) => o.indeterminate)) {
       // 半选
       // 半选递归父元素
       parent.setIndeterminate(true);

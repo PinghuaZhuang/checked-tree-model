@@ -65,6 +65,19 @@ describe('状态变化', () => {
     expect(mock.getSelectKeys()).toEqual([23, 24, 25, 29, 30, 31]);
   });
 
+  it('selectKeys-不遍历子元素', () => {
+    const mock = new CheckedTreeModel(createMock());
+    expect(mock.selectKeys([22], true)).toMatchObject({
+      21: {
+        indeterminate: true,
+      },
+      22: {
+        checked: true,
+      },
+    });
+    expect(mock.getSelectKeys()).toEqual([22]);
+  });
+
   it('diff', () => {
     const mock = new CheckedTreeModel(createMock());
     const diff = mock.setCheckedByIdReturnDiff(23);
