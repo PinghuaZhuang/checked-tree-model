@@ -169,11 +169,15 @@ class CheckedTreeModel implements Data {
   /**
    * 通过ID设置选中
    */
-  setCheckedByIdReturnDiff(id?: Data['id'], value?: boolean): Diff {
+  setCheckedByIdReturnDiff(
+    id?: Data['id'],
+    value?: boolean,
+    undown?: boolean,
+  ): Diff {
     diff = {};
     const target = this.map[id ?? this.id];
     if (target == null) return {};
-    target.setChecked(value ?? true, false, true);
+    target.setChecked(value ?? true, false, undown);
     const ret = Object.assign({}, diff);
     diff = {};
     return ret;
@@ -182,11 +186,11 @@ class CheckedTreeModel implements Data {
   /**
    * 根据ID数组设置选中, 返回Diff
    */
-  selectKeys(keys: Ids) {
+  selectKeys(keys: Ids, undown?: boolean) {
     // 先清空状态
     const diffTmp: Diff = this.clean();
     keys.forEach((o) => {
-      merge(diffTmp, this.setCheckedByIdReturnDiff(o));
+      merge(diffTmp, this.setCheckedByIdReturnDiff(o, true, undown));
     });
     return diffTmp;
   }
