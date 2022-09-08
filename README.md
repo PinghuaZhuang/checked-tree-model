@@ -59,6 +59,8 @@ type EachCallback = (
   parent: CheckedTreeModel,
   index: number,
 ) => void;
+
+type Undown = boolean; // 初始化的时候, 是否强关联(向下遍历).
 ```
 
 ## Methods
@@ -67,8 +69,8 @@ type EachCallback = (
 - diff: () => { indeterminate?: boolean; checked?: boolean;} | undefined. 当前数据变化状态
 - setChecked: () => CheckedTreeModel. 选中当前数据.
 - setIndeterminate: () => CheckedTreeModel. 半选.
-- setCheckedByIdReturnDiff: (id?: Data['id'], value?: boolean) => {}
-- selectKeys: (keys: Ids) => Diff. 根据 ID 数组设置选中
+- setCheckedByIdReturnDiff: (id?: Data['id'], value?: boolean, undown?: boolean) => {}
+- selectKeys: (keys: Ids, undown?: boolean) => Diff. 根据 ID 数组设置选中
 - getSelectKeys: () => Ids. 获取当前树所有选中的 ID.
 - clean: () => Diff. 清空当前树所有状态.
 - each: (fn: EachCallback) => void. 遍历子元素.
