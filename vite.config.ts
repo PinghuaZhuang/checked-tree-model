@@ -1,7 +1,13 @@
 /// <reference types="vitest" />
 import { defineConfig } from 'vite';
+import lodash from 'lodash';
 import path from 'path';
-import typescript from '@rollup/plugin-typescript';
+import dts from 'vite-plugin-dts';
+import pkg from './package.json';
+
+const { upperFirst, camelCase } = lodash;
+
+const pkgName = upperFirst(camelCase(pkg.name.replace(/^.*?([\w-]+)$/, '$1')));
 
 function resolve(url: string) {
   return path.resolve(__dirname, url);
@@ -18,23 +24,10 @@ export default defineConfig({
     outDir: 'lib',
     lib: {
       entry: resolve('./src/CheckedTreeModel.ts'),
-      name: 'CheckedTreeModel',
+      name: pkgName,
       formats: ['es', 'umd'],
       fileName: (format) => `index.${format}.js`,
     },
-    rollupOptions: {
-      plugins: [
-        typescript({
-          target: 'es2015',
-          rootDir: resolve('./src'),
-          declaration: true,
-          declarationDir: resolve('./lib'),
-          exclude: resolve('node_modules/**'),
-          tsconfig: resolve('./tsconfig.json'),
-        }),
-      ],
-    },
   },
-  plugins: [],
-  test: {},
+  plugins: [dts()],
 });
